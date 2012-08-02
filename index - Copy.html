@@ -1,0 +1,39 @@
+<! DOCTYPE html>
+<html>
+<script src="http://localhost:8080/socket.io/socket.io.js"></script>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>-->
+<script>
+
+	var socket = io.connect('http://localhost:8080');
+
+	// on connection to server, ask for user's name with an anonymous callback
+
+	//socket.emit('testconnection');
+
+	socket.on('testthis', function(data){
+		// call the server-side function 'adduser' and send one parameter (value of prompt)
+		alert(data + " has joined.");
+		
+	});
+	
+	function submitname(form){
+	
+		var username = form.name.value;
+		socket.emit('testconnection', username);
+	}
+	
+	
+</script>
+
+	
+	<body>
+		
+		<form name= 'sendname' action='' method='get' />
+		<input type='text' name='name' value=''/>
+		<input type='button' value= 'Enter Name' onclick='submitname(this.form)' />
+	
+	</body>
+
+
+
+</html>

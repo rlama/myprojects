@@ -1,0 +1,63 @@
+<! DOCTYPE html>
+<html>
+<script src="http://60.241.161.11:8080/socket.io/socket.io.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+<script>
+
+	var socket = io.connect('http://60.241.161.11:8080');
+	
+	var randid = Math.floor(Math.random() * 9999);
+	var playername = "player" + randid;
+	
+	var data = {};
+
+	
+	socket.on('newplayer', function(datafromServer){
+		var container = document.getElementById('thistext');
+		var existingMsg = container.innerHTML;
+		container.innerHTML = existingMsg + "</br>" +datafromServer[0] + "  says: "+ datafromServer[1] ;
+		
+	});
+	
+	function submitname(form){
+	
+		data = [];
+		data[0] = document.getElementById('yourname').value;
+		data[1] = form.msg.value;
+	
+		
+		//var username = form.name.value;
+		socket.emit('clientconnects', data);
+
+	}
+	
+
+</script>
+
+	
+	<body>
+		
+		<div id='thistext'> </div>
+		
+		<p>
+			<label>Your name</label>
+			: 
+			<label for="yourname"></label>
+			<input type="text" name="yourname" id="yourname" />
+		</p>
+		
+		<p>Msg:
+		</p>
+		<form name="sendname" method="get" action="">
+		  <label for="msg"></label>
+		  <textarea name="msg" id="msg" cols="45" rows="5"></textarea>
+		  <input type='button' value= 'Enter Name' onclick='submitname(this.form)' />
+		
+		</form>
+
+
+	</body>
+
+
+
+</html>

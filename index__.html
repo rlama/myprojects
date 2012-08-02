@@ -1,0 +1,36 @@
+<! DOCTYPE html>
+<html>
+<script src="http://localhost:8080/socket.io/socket.io.js"></script>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>-->
+<script>
+
+	var socket = io.connect('http://localhost:8080');
+	
+	var randid = Math.floor(Math.random() * 9999);
+	var playername = "player" + randid;
+	
+	
+	socket.emit('clientconnects', playername);
+	
+	
+	socket.on('newplayer', function(name){
+
+		document.getElementById('thistext').innerHTML = name + " has entered the game.";
+	});
+
+
+	
+	
+</script>
+
+	
+	<body>
+		
+		<div id='thistext'> </div>
+		
+	
+	</body>
+
+
+
+</html>
